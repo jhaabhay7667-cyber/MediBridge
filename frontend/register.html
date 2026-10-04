@@ -1,0 +1,12 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Register – MediBridge</title><link rel="stylesheet" href="style.css"></head>
+<body><main class="auth"><h1>MediBridge</h1><form class="card" id="f"><h2>Create account</h2>
+<label for="full_name">Full name</label><input id="full_name" required>
+<label for="email">Email</label><input id="email" type="email" autocomplete="email" required>
+<label for="pw">Password (8+ characters, letters and digits)</label><input id="pw" type="password" autocomplete="new-password" minlength="8" required>
+<label for="phone">Phone (optional)</label><input id="phone" type="tel">
+<label for="age">Age (optional)</label><input id="age" type="number" min="0" max="130">
+<label for="blood_group">Blood group (optional)</label><input id="blood_group" maxlength="5">
+<p class="muted">We collect only what is needed to coordinate an emergency. Medical details stay private to your account.</p>
+<p id="err" role="alert" class="s-FAILED"></p><button class="primary" type="submit">Create account</button>
+<p>Have an account? <a href="login.html">Log in</a></p></form></main>
+<script src="config.js"></script><script src="app.js"></script><script src="auth.js"></script></body></html>
