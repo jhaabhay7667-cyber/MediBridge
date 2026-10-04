@@ -1,7 +1,7 @@
 import os, tempfile
 os.environ["DATABASE_URL"] = f"sqlite:///{tempfile.mkdtemp()}/test.db"
 os.environ["SECRET_KEY"] = "test-secret"
-for k in ("SMTP_HOST", "SMTP_PORT", "SMTP_FROM_EMAIL"):
+for k in ("SMTP_HOST", "SMTP_PORT", "SMTP_FROM_EMAIL", "BREVO_API_KEY"):
     os.environ[k] = ""
 import pytest
 from fastapi.testclient import TestClient

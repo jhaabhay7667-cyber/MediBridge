@@ -5,6 +5,8 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 
 load_dotenv()
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./medibridge.db")
+if DATABASE_URL.startswith("postgres://"):  # Render gives postgres://, SQLAlchemy needs postgresql://
+    DATABASE_URL = "postgresql://" + DATABASE_URL[len("postgres://"):]
 engine = create_engine(
     DATABASE_URL,
     connect_args={"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {},

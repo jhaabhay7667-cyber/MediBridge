@@ -18,7 +18,7 @@ def haversine_km(lat1, lon1, lat2, lon2):
 
 def _nearby(db, lat, lon, radius_km, type_, emergency_only, city=None):
     q = db.query(Facility)
-    if type_: q = q.filter(Facility.type == type_)
+    if type_: q = q.filter(Facility.type.ilike(type_))
     if city: q = q.filter(Facility.city.ilike(city))
     if emergency_only: q = q.filter(Facility.emergency_available.is_(True))
     out = []
@@ -32,7 +32,7 @@ def _nearby(db, lat, lon, radius_km, type_, emergency_only, city=None):
 @router.get("", response_model=list[FacilityOut])
 def list_facilities(type: Optional[str] = None, city: Optional[str] = None, db: Session = Depends(get_db)):
     q = db.query(Facility)
-    if type: q = q.filter(Facility.type == type)
+    if type: q = q.filter(Facility.type.ilike(type))
     if city: q = q.filter(Facility.city.ilike(city))
     return q.order_by(Facility.name).all()
 

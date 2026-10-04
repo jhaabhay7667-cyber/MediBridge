@@ -11,6 +11,11 @@ from .routers import auth, contacts, emergencies, facilities
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger("medibridge")
 Base.metadata.create_all(bind=engine)
+try:  # idempotent demo-facility seed so a fresh database is usable
+    from .seed_facilities import run as _seed
+    _seed()
+except Exception:  # noqa: BLE001
+    log.exception("Demo seed failed")
 
 app = FastAPI(title="MediBridge API", description="Emergency coordination platform. "
               "Informational/coordination use only; not a substitute for emergency services.")
