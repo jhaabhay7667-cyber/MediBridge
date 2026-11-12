@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Medical Report Analyzer - MediBridge</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .report-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(260px, .8fr);
+            gap: 1rem;
+        }
+
+        .upload-zone {
+            border: 2px dashed var(--line);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            background: var(--bg);
+        }
+
+        .upload-zone input {
+            margin-top: 1rem;
+        }
+
+        .file-name {
+            overflow-wrap: anywhere;
+            color: var(--teal);
+            font-weight: 700;
+        }
+
+        .finding {
+            padding: .8rem;
+            border: 1px solid var(--line);
+            border-radius: 9px;
+            margin: .6rem 0;
+        }
+
+        .finding h3 {
+            margin: 0 0 .4rem;
+            font-size: 1rem;
+        }
+
+        .finding p {
+            margin: .25rem 0;
+        }
+
+        .status-normal { color: var(--ok); font-weight: 700; }
+        .status-high, .status-low { color: var(--warn); font-weight: 700; }
+        .status-inconclusive, .status-not-stated { color: var(--muted); font-weight: 700; }
+
+        .report-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .5rem;
+            margin-top: .8rem;
+        }
+
+        .history-item {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: .6rem;
+            padding: .8rem 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .history-item:last-child {
+            border-bottom: 0;
+        }
+
+        .result-section {
+            margin-top: 1rem;
+        }
+
+        .result-section h3 {
+            margin-bottom: .4rem;
+        }
+
+        .empty-state {
+            color: var(--muted);
+            padding: 1rem 0;
+        }
+
+        @media(max-width:700px) {
+            .report-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<main id="main">
+
+    <h1>AI Medical Report Analyzer</h1>
+
+    <p class="muted">
+        Upload a medical report to receive a simple AI-generated explanation.
+        This tool does not diagnose medical conditions.
+    </p>
+
+    <section class="card">
+        <h2>Upload your medical report</h2>
+
+        <form id="reportForm">
+
+            <div class="upload-zone">
+                <p><strong>Select your report</strong></p>
+                <p class="muted">Supported formats: PDF, JPG, JPEG and PNG</p>
+                <p class="muted">Maximum file size: 12 MB</p>
+
+                <input
+                    type="file"
+                    id="reportFile"
+                    accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png"
+                    required
+                >
+
+                <p class="file-name" id="selectedFile">
+                    No file selected
+                </p>
+            </div>
+
+            <label for="reportLanguage">Explanation language</label>
+
+            <select id="reportLanguage">
+                <option value="English">English</option>
+                <option value="Hindi">हिन्दी</option>
+                <option value="Bengali">বাংলা</option>
+                <option value="Urdu">اردو</option>
+                <option value="Tamil">தமிழ்</option>
+                <option value="Telugu">తెలుగు</option>
+                <option value="Marathi">मराठी</option>
+                <option value="Gujarati">ગુજરાતી</option>
+                <option value="Punjabi">ਪੰਜਾਬੀ</option>
+                <option value="Kannada">ಕನ್ನಡ</option>
+                <option value="Malayalam">മലയാളം</option>
+                <option value="Odia">ଓଡ଼ିଆ</option>
+                <option value="Assamese">অসমীয়া</option>
+                <option value="Spanish">Spanish</option>
+                <option value="French">French</option>
+                <option value="Arabic">العربية</option>
+            </select>
+
+            <div class="report-actions">
+                <button class="primary" id="analyzeButton" type="submit">
+                    Analyze Medical Report
+                </button>
+
+                <button type="reset" id="clearButton">
+                    Clear
+                </button>
+            </div>
+
+            <p id="uploadStatus" class="muted" role="status" aria-live="polite"></p>
+
+        </form>
+    </section>
+
+    <div class="report-layout">
+
+        <section class="card">
+            <h2>AI Analysis Result</h2>
+
+            <div id="analysisResult" aria-live="polite">
+                <p class="empty-state">
+                    Your report analysis will appear here after upload.
+                </p>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Report History</h2>
+
+            <p class="muted">
+                Your saved medical report analyses.
+            </p>
+
+            <button type="button" id="refreshHistory">
+                Refresh History
+            </button>
+
+            <div id="reportHistory">
+                <p class="empty-state">Loading reports...</p>
+            </div>
+        </section>
+
+    </div>
+
+    <section class="card">
+        <h2>Medical Safety Notice</h2>
+        <p>
+            AI-generated explanations may contain errors. They are for
+            educational purposes only and are not a diagnosis, prescription
+            or replacement for a qualified healthcare professional.
+        </p>
+        <p>
+            If you have severe symptoms or a medical emergency, seek
+            immediate medical care. In India, call 112 for emergencies.
+        </p>
+    </section>
+
+</main>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+<script src="reports.js"></script>
+
+</body>
+</html>

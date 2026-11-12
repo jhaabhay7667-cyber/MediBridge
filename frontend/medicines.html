@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medicine Guide | MediBridge</title>
+
+  <style>
+    .medicine-page {
+      max-width: 1100px;
+      margin: 24px auto;
+      padding: 16px;
+    }
+
+    .medicine-search {
+      display: flex;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .medicine-search input {
+      flex: 1;
+      min-width: 0;
+      padding: 13px;
+      border-radius: 10px;
+    }
+
+    .medicine-search button {
+      padding: 10px 18px;
+      border-radius: 10px;
+    }
+
+    .medicine-notice {
+      padding: 14px;
+      border: 1px solid #d69b3a88;
+      background: #e6a23c18;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.65;
+      margin: 16px 0;
+    }
+
+    .medicine-card {
+      border: 1px solid #8885;
+      border-radius: 14px;
+      padding: 18px;
+      margin: 16px 0;
+      background: var(--card, #fff);
+      color: var(--text, #222);
+    }
+
+    .medicine-card h2 {
+      margin-top: 0;
+      font-size: 21px;
+    }
+
+    .medicine-section {
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px solid #8884;
+    }
+
+    .medicine-section h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .medicine-section p {
+      font-size: 14px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .medicine-muted {
+      font-size: 13px;
+      opacity: .75;
+    }
+
+    .medicine-source {
+      display: inline-block;
+      margin-top: 14px;
+      color: #2563eb;
+    }
+
+    @media (max-width: 600px) {
+      .medicine-search {
+        flex-direction: column;
+      }
+
+      .medicine-search button {
+        min-height: 44px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="medicine-page">
+
+    <h1>Medicine Information Guide</h1>
+
+    <p class="medicine-muted">
+      Search public medicine label information by brand or generic name.
+    </p>
+
+    <form id="medicineSearchForm" class="medicine-search">
+      <input
+        id="medicineInput"
+        type="search"
+        placeholder="Example: paracetamol"
+        minlength="2"
+        maxlength="100"
+        required
+      >
+
+      <button type="submit" id="medicineSearchButton">
+        Search medicine
+      </button>
+    </form>
+
+    <div class="medicine-notice">
+      <strong>Medical safety notice:</strong>
+      This guide provides educational information, not medical advice.
+      Do not start, stop, combine or change medicines based on these results.
+      Dosage and suitability depend on the individual and must be confirmed
+      by a qualified doctor or pharmacist. The displayed US FDA information
+      does not confirm approval or availability in India.
+      For a genuine emergency in India, call 112.
+    </div>
+
+    <p id="medicineStatus" class="medicine-muted" aria-live="polite">
+      Search for a medicine to view available information.
+    </p>
+
+    <section id="medicineResults"></section>
+
+  </main>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+  <script src="medicines.js"></script>
+</body>
+</html>

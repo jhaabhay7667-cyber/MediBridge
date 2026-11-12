@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wound & Skin Observation | MediBridge</title>
+
+  <style>
+    .wound-page {
+      max-width: 1000px;
+      margin: 24px auto;
+      padding: 16px;
+    }
+
+    .wound-panel {
+      padding: 20px;
+      border: 1px solid #8885;
+      border-radius: 16px;
+      background: var(--card, #fff);
+      color: var(--text, #222);
+      margin: 18px 0;
+    }
+
+    .wound-upload {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      border: 1px dashed #888;
+      border-radius: 12px;
+      box-sizing: border-box;
+    }
+
+    #woundPreview {
+      display: none;
+      max-width: 100%;
+      max-height: 350px;
+      margin: 16px auto;
+      border-radius: 12px;
+      object-fit: contain;
+    }
+
+    .wound-consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 18px 0;
+    }
+
+    .wound-consent input {
+      margin-top: 4px;
+    }
+
+    .wound-submit {
+      padding: 12px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .wound-submit:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    .wound-notice {
+      padding: 14px;
+      border: 1px solid #d69b3a88;
+      background: #e6a23c18;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .wound-result {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      line-height: 1.8;
+      font-size: 14px;
+    }
+
+    .wound-history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #8884;
+      flex-wrap: wrap;
+    }
+
+    .wound-history-item button {
+      padding: 8px 12px;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 600px) {
+      .wound-panel {
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wound-page">
+
+    <h1>Wound & Skin Image Observation</h1>
+
+    <p>
+      Upload a clear image to receive cautious AI-generated
+      observations about visible features.
+    </p>
+
+    <div class="wound-notice">
+      <strong>Medical safety notice:</strong>
+      This feature cannot diagnose wounds, infections, burns or skin diseases.
+      It cannot determine wound depth or replace a clinician's examination.
+      Do not delay emergency care for an AI response.
+      For emergencies in India, call 112.
+    </div>
+
+    <section class="wound-panel">
+      <h2>Upload an image</h2>
+
+      <form id="woundForm">
+
+        <label for="woundImage">
+          Select a JPG, JPEG or PNG image (maximum 5 MB)
+        </label>
+
+        <input
+          class="wound-upload"
+          id="woundImage"
+          name="file"
+          type="file"
+          accept="image/jpeg,image/png"
+          required
+        >
+
+        <img id="woundPreview" alt="Selected image preview">
+
+        <label class="wound-consent">
+          <input
+            id="woundConsent"
+            type="checkbox"
+            required
+          >
+
+          <span>
+  I understand that my image will be sent to Google Gemini for processing.
+  Google may process and retain submitted information according to its
+  applicable API terms and policies. MediBridge will encrypt the image
+  and observation when storing them in its database. I consent to this
+  processing and understand that AI observations are not a diagnosis.
+  I will avoid uploading images containing unnecessary identifying details.
+</span>
+        </label>
+
+        <button
+          class="wound-submit"
+          id="woundSubmit"
+          type="submit"
+          disabled
+        >
+          Analyze image
+        </button>
+
+      </form>
+
+      <p id="woundStatus" aria-live="polite">
+        Choose an image to get started.
+      </p>
+    </section>
+
+    <section class="wound-panel">
+      <h2>AI observations</h2>
+
+      <p id="woundResult" class="wound-result">
+        Your observations will appear here.
+      </p>
+    </section>
+
+    <section class="wound-panel">
+      <h2>Previous assessments</h2>
+      <div id="woundHistory">
+        Loading assessment history…
+      </div>
+    </section>
+
+  </main>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+  <script src="wounds.js"></script>
+</body>
+</html>

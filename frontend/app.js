@@ -1,11 +1,12 @@
 const API = ((window.MB_CONFIG || {}).API_BASE || "").replace(/\/$/, "");
 const T = {
-  en: {dashboard: "Dashboard", history: "History", contacts: "Contacts", facilities: "Facilities", logout: "Log out", sos: "SOS",
+  en: {dashboard: "Dashboard", history: "History", contacts: "Contacts", facilities: "Facilities", reports: "Medical Reports", chatbot: "AI Health Assistant", hospitals: "Nearby Hospitals", medicines: "Medicine Guide", wounds: "Wound Assessment", family: "Family", doctors: "Doctor Finder",
+ logout: "Log out", sos: "SOS", voice: "Voice AI Assistant",
        disclaimer: "MediBridge is for coordination and information. It does not call emergency services or replace medical advice. In a genuine emergency, call your local emergency number (112 in India)."},
-  hi: {dashboard: "डैशबोर्ड", history: "इतिहास", contacts: "संपर्क", facilities: "सुविधाएँ", logout: "लॉग आउट", sos: "SOS",
+  hi: {dashboard: "डैशबोर्ड", history: "इतिहास", contacts: "संपर्क", facilities: "सुविधाएँ", reports: "चिकित्सा रिपोर्ट्स", chatbot: "AI स्वास्थ्य सहायक", hospitals: "निकटवर्ती अस्पताल", medicines: "दवा गाइड", wounds: "घाव मूल्यांकन", family: "परिवार", doctors: "डॉक्टर फाइंडर", voice: "वॉइस AI स्वास्थ्य सहायक", logout: "लॉग आउट", sos: "SOS",
        disclaimer: "MediBridge समन्वय और जानकारी के लिए है। यह आपातकालीन सेवाओं को कॉल नहीं करता और चिकित्सकीय सलाह का विकल्प नहीं है। वास्तविक आपात स्थिति में अपने स्थानीय आपातकालीन नंबर (भारत में 112) पर कॉल करें।"},
-  bn: {dashboard: "ড্যাশবোর্ড", history: "ইতিহাস", contacts: "যোগাযোগ", facilities: "সুবিধা", logout: "লগ আউট", sos: "SOS",
-       disclaimer: "MediBridge সমন্বয় ও তথ্যের জন্য। এটি জরুরি পরিষেবাকে কল করে না এবং চিকিৎসা পরামর্শের বিকল্প নয়। প্রকৃত জরুরি অবস্থায় আপনার স্থানীয় জরুরি নম্বরে (ভারতে 112) কল করুন।"}
+  bn: {dashboard: "ড্যাশবোর্ড", history: "ইতিহাস", contacts: "যোগাযোগ", facilities: "সুবিধা", reports: "চিকিৎসা রিপোর্ট", chatbot: "AI স্বাস্থ্য সহায়ক", hospitals: "নিকটবর্তী হাসপাতাল", medicines: "দবা গাইড", wounds: "আহতি মূল্যায়ন", family: "পরিবার", doctors: "ডক্টর ফাইন্ডার", voice: "ভয়েস AI স্বাস্থ্য সহায়ক", logout: "লগ আউট", sos: "SOS",
+       disclaimer: "MediBridge সমন্বয় ও তথ্যের জন্য। এটি জরুরি পরিষেবাকে কল করে না এবং চিকিৎসা পরামর্শের বিকল্প नय। प्रकृत जरूरी अवस्था में अपने स्थानीय जरूरी नंबरे (भारत में 112) पर कल करें।"}
 };
 let lang = localStorage.getItem("mb_lang") || "en";
 const t = k => (T[lang] && T[lang][k]) || T.en[k] || k;
@@ -56,7 +57,7 @@ applyTheme(localStorage.getItem("mb_theme") || "light");
 async function shell(page) {
   if (!token()) { location.href = "login.html"; return false; }
   try { currentUser = await api("/api/auth/me"); } catch (e) { toast(e.message, true); return false; }
-  const items = [["dashboard", "dashboard.html"], ["history", "history.html"], ["contacts", "contacts.html"], ["facilities", "facilities.html"]];
+  const items = [["dashboard", "dashboard.html"], ["history", "history.html"], ["contacts", "contacts.html"], ["facilities", "facilities.html"], ["reports", "reports.html"], ["chatbot", "chatbot.html"], ["hospitals", "hospitals.html"], ["medicines", "medicines.html"], ["wounds", "wounds.html"], ["family", "family.html"], ["doctors", "doctors.html"],  ["voice", "voice-assistant.html"]];
   document.body.insertAdjacentHTML("afterbegin", `
     <header><a class="brand" href="dashboard.html">MediBridge</a>
       <label class="muted" for="lang" style="margin:0">Language</label>

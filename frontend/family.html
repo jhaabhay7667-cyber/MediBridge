@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Health Profiles | MediBridge</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .family-wrap { max-width: 1050px; margin: auto; padding: 24px 16px; }
+        .family-panel {
+            background: var(--card, #fff);
+            border: 1px solid var(--border, #ddd);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .family-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+        }
+        .family-field { display: flex; flex-direction: column; gap: 6px; }
+        .family-field input, .family-field textarea, .family-field select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 11px;
+            border: 1px solid var(--border, #ccc);
+            border-radius: 9px;
+            background: var(--input-bg, transparent);
+            color: inherit;
+        }
+        .family-field textarea { min-height: 85px; resize: vertical; }
+        .family-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 14px; }
+        .family-button {
+            padding: 10px 15px;
+            border: 0;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .family-primary { background: #6257e8; color: white; }
+        .family-secondary { background: #e9e8ff; color: #3730a3; }
+        .family-danger { background: #fee2e2; color: #991b1b; }
+        .family-card {
+            border: 1px solid var(--border, #ddd);
+            border-radius: 13px;
+            padding: 16px;
+            margin-top: 12px;
+        }
+        .family-muted { opacity: .75; font-size: .9rem; }
+        .family-status { margin: 10px 0; min-height: 20px; }
+        .family-hidden { display: none !important; }
+        .family-notice {
+            border-left: 4px solid #d69e36;
+            padding: 12px;
+            background: rgba(214, 158, 54, .10);
+            border-radius: 8px;
+            margin-bottom: 18px;
+        }
+        @media (max-width: 600px) {
+            .family-panel { padding: 15px; }
+            .family-actions .family-button { flex: 1 1 auto; }
+        }
+    </style>
+</head>
+<body>
+    <main class="family-wrap">
+        <h1>Family Health Profiles</h1>
+        <p class="family-muted">
+            Create separate profiles for family members and manage access securely.
+        </p>
+
+        <div class="family-notice">
+            Family profiles contain sensitive information. Only the profile owner
+            and users whose sharing invitations have been accepted can view them.
+            Shared users have read-only access.
+        </div>
+
+        <section class="family-panel">
+            <h2 id="familyFormHeading">Create a family profile</h2>
+
+            <form id="familyProfileForm">
+                <div class="family-grid">
+                    <label class="family-field">
+                        Full name *
+                        <input id="familyName" maxlength="100" required>
+                    </label>
+
+                    <label class="family-field">
+                        Relationship *
+                        <input id="familyRelationship" maxlength="50"
+                               placeholder="e.g. Parent, Spouse, Child" required>
+                    </label>
+
+                    <label class="family-field">
+                        Date of birth
+                        <input id="familyDob" type="date">
+                    </label>
+
+                    <label class="family-field">
+                        Blood group
+                        <select id="familyBloodGroup">
+                            <option value="">Not specified</option>
+                            <option>A+</option><option>A-</option>
+                            <option>B+</option><option>B-</option>
+                            <option>AB+</option><option>AB-</option>
+                            <option>O+</option><option>O-</option>
+                        </select>
+                    </label>
+
+                    <label class="family-field">
+                        Allergies
+                        <textarea id="familyAllergies"
+                            maxlength="2000"
+                            placeholder="Optional. Mention known allergies."></textarea>
+                    </label>
+
+                    <label class="family-field">
+                        Emergency notes
+                        <textarea id="familyEmergencyNotes"
+                            maxlength="2000"
+                            placeholder="Optional emergency information."></textarea>
+                    </label>
+                </div>
+
+                <div class="family-actions">
+                    <button class="family-button family-primary" type="submit"
+                            id="familySaveButton">Save profile</button>
+                    <button class="family-button family-secondary family-hidden"
+                            type="button" id="familyCancelEdit">Cancel edit</button>
+                </div>
+            </form>
+
+            <p class="family-status" id="familyFormStatus" role="status"></p>
+        </section>
+
+        <section class="family-panel">
+            <h2>My family profiles</h2>
+            <div id="familyOwnedList">Loading profiles...</div>
+        </section>
+
+        <section class="family-panel">
+            <h2>Sharing invitations</h2>
+            <p class="family-muted">
+                Invitations sent to your account appear here. Accepting an invitation
+                gives the sender read-only access to the shared profile.
+            </p>
+            <div id="familyInvitations">Loading invitations...</div>
+        </section>
+
+        <section class="family-panel">
+            <h2>Profiles shared with me</h2>
+            <div id="familySharedList">Loading shared profiles...</div>
+        </section>
+
+        <section class="family-panel family-hidden" id="familyDetailsPanel">
+            <h2>Profile details</h2>
+            <div id="familyDetails"></div>
+        </section>
+
+        <section class="family-panel family-hidden" id="familySharePanel">
+            <h2>Manage profile sharing</h2>
+            <p class="family-muted">
+                The invited person must have a registered MediBridge account.
+                They must accept the invitation before they can view the profile.
+            </p>
+
+            <form id="familyShareForm">
+                <label class="family-field">
+                    Registered user's email
+                    <input id="familyShareEmail" type="email" maxlength="254"
+                           required placeholder="person@example.com">
+                </label>
+                <div class="family-actions">
+                    <button class="family-button family-primary" type="submit">
+                        Send invitation
+                    </button>
+                </div>
+            </form>
+
+            <p class="family-status" id="familyShareStatus" role="status"></p>
+            <div id="familyShareList"></div>
+        </section>
+    </main>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+    <script src="family.js"></script>
+</body>
+</html>

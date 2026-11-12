@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from .database import Base, engine
 from . import models  # noqa: F401
-from .routers import auth, contacts, emergencies, facilities
+from .routers import auth, contacts, emergencies, facilities, reports, symptoms, chatbot, places, medicines, wounds, family, doctors
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger("medibridge")
@@ -22,7 +22,7 @@ app = FastAPI(title="MediBridge API", description="Emergency coordination platfo
 origins = [o.strip() for o in os.getenv("CORS_ORIGINS", "http://localhost:5500").split(",") if o.strip()]
 app.add_middleware(CORSMiddleware, allow_origins=origins, allow_credentials=True,
                    allow_methods=["*"], allow_headers=["*"])
-for r in (auth.router, contacts.router, emergencies.router, facilities.router):
+for r in (auth.router, contacts.router, emergencies.router, facilities.router, reports.router, symptoms.router, chatbot.router, places.router, medicines.router, wounds.router, family.router, doctors.router):
     app.include_router(r)
 
 

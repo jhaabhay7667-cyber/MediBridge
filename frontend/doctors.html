@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Finder | MediBridge</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="doctors.css">
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+</head>
+<body>
+
+<main class="doctor-page">
+
+    <section class="doctor-heading">
+        <div>
+            <span class="doctor-eyebrow">MEDIBRIDGE HEALTHCARE</span>
+            <h1>Doctor & Specialist Finder</h1>
+            <p>
+                Find nearby healthcare professionals and clinics
+                using location-based listings.
+            </p>
+        </div>
+    </section>
+
+    <section class="doctor-search-panel">
+
+        <div class="doctor-field">
+            <label for="doctorLocation">City, locality or PIN code</label>
+            <input
+                id="doctorLocation"
+                type="text"
+                placeholder="Enter your location"
+            >
+        </div>
+
+        <div class="doctor-field">
+            <label for="doctorSpecialty">Specialty</label>
+            <select id="doctorSpecialty">
+                <option value="any">All specialties</option>
+                <option value="general">General Physician</option>
+                <option value="cardiology">Cardiologist</option>
+                <option value="dermatology">Dermatologist</option>
+                <option value="neurology">Neurologist</option>
+                <option value="orthopedics">Orthopedic Specialist</option>
+                <option value="pediatrics">Pediatrician</option>
+                <option value="gynecology">Gynecologist</option>
+                <option value="ent">ENT Specialist</option>
+            </select>
+        </div>
+
+        <div class="doctor-field">
+            <label for="doctorRadius">Search radius</label>
+            <select id="doctorRadius">
+                <option value="5">5 km</option>
+                <option value="10" selected>10 km</option>
+                <option value="15">15 km</option>
+                <option value="20">20 km</option>
+            </select>
+        </div>
+
+        <div class="doctor-actions">
+            <button id="doctorLocationBtn" type="button">
+                Use My Location
+            </button>
+
+            <button id="doctorSearchBtn" type="button">
+                Search Doctors
+            </button>
+        </div>
+
+    </section>
+
+    <div id="doctorStatus" class="doctor-status" role="status">
+        Allow location access or enter a location to find nearby doctors.
+    </div>
+
+    <section class="doctor-results-summary">
+        <div>
+            <h2>Nearby Healthcare Listings</h2>
+            <p id="doctorResultCount">No search performed yet.</p>
+        </div>
+
+        <input
+            type="search"
+            id="doctorNameFilter"
+            placeholder="Filter results by name..."
+            aria-label="Filter doctor listings by name"
+        >
+    </section>
+
+    <section class="doctor-layout">
+
+        <div class="doctor-list-panel">
+            <div id="doctorResults" class="doctor-results">
+                <div class="doctor-empty">
+                    <h3>Find healthcare professionals</h3>
+                    <p>
+                        Search by location and specialty to see
+                        available OpenStreetMap listings.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="doctor-map-panel">
+            <div id="doctorMap" aria-label="Map of nearby healthcare listings"></div>
+        </div>
+
+    </section>
+
+    <section class="doctor-disclaimer">
+        <strong>Important information</strong>
+        <p>
+            Listings are provided by OpenStreetMap contributors.
+            MediBridge does not independently verify doctor registration,
+            qualifications, ratings, consultation availability,
+            appointment slots or clinical services.
+            Contact the clinic directly before visiting.
+        </p>
+        <a
+            href="https://www.openstreetmap.org/copyright"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            OpenStreetMap attribution and copyright
+        </a>
+    </section>
+
+</main>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="doctors.js"></script>
+
+</body>
+</html>

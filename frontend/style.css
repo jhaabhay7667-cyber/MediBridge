@@ -36,3 +36,313 @@ dialog{border:1px solid var(--line);border-radius:var(--r);background:var(--card
 @media(max-width:600px){table.resp thead{display:none}table.resp td{display:block;border:0;padding:.15rem .5rem}table.resp tr{display:block;border-bottom:1px solid var(--line);padding:.4rem 0}}
 @media print{header,nav,.noprint,.toasts{display:none!important}body{background:#fff;color:#000}.card{border:1px solid #999}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* =========================================
+   MEDIBRIDGE - EMERGENCY ASSISTANCE
+   Part 10 - Additional Styles
+========================================= */
+
+/* Emergency warning panel */
+[role="alert"].card {
+  border: 2px solid var(--sos);
+  border-left-width: 6px;
+}
+
+[role="alert"].card h2 {
+  color: var(--sos);
+}
+
+/* Emergency call button */
+.btn.danger,
+a.btn.danger {
+  background: var(--sos);
+  color: #fff;
+  border-color: var(--sos);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.btn.danger:hover,
+a.btn.danger:hover {
+  filter: brightness(.92);
+}
+
+/* Location sharing button */
+#share-location {
+  background: var(--teal);
+  color: var(--teal-ink);
+  border-color: var(--teal);
+  font-weight: 700;
+}
+
+/* First aid sections */
+.card details {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: .8rem;
+  margin: .65rem 0;
+  background: var(--bg);
+}
+
+.card details summary {
+  cursor: pointer;
+  font-weight: 700;
+  min-height: 28px;
+}
+
+.card details[open] summary {
+  margin-bottom: .6rem;
+  color: var(--teal);
+}
+
+.card details ul {
+  padding-left: 1.4rem;
+  margin-bottom: .2rem;
+}
+
+.card details li {
+  margin-bottom: .4rem;
+}
+
+/* Emergency contact actions */
+.card li .row {
+  margin-bottom: .8rem;
+}
+
+.card li .btn {
+  min-height: 40px;
+}
+
+/* Nearby facility cards */
+#nearby > .card {
+  margin-top: .8rem;
+  background: var(--bg);
+}
+
+/* Better mobile emergency actions */
+@media(max-width:600px) {
+  .card .row {
+    gap: .6rem;
+  }
+
+  .card .row > button,
+  .card .row > a.btn {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+
+  #share-location {
+    width: 100%;
+  }
+
+  .card details {
+    padding: .7rem;
+  }
+}
+
+/* Accessible focus for emergency controls */
+#share-location:focus-visible,
+.card a[href^="tel:"]:focus-visible,
+.card a[href^="sms:"]:focus-visible {
+  outline: 3px solid var(--warn);
+  outline-offset: 3px;
+}
+
+/* Print-friendly emergency information */
+@media print {
+  .card details {
+    break-inside: avoid;
+  }
+
+  .card details:not([open]) > *:not(summary) {
+    display: block !important;
+  }
+}
+
+/* MediBridge Part 10 - Emergency Assistance */
+
+.btn.danger,
+a.btn.danger {
+  background: var(--sos);
+  color: #fff;
+  border-color: var(--sos);
+  font-weight: 700;
+}
+
+[role="alert"].card {
+  border: 2px solid var(--sos);
+  border-left-width: 6px;
+}
+
+[role="alert"].card h2 {
+  color: var(--sos);
+}
+
+#share-location {
+  background: var(--teal);
+  color: var(--teal-ink);
+  border-color: var(--teal);
+  font-weight: 700;
+}
+
+.card details {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: .8rem;
+  margin: .65rem 0;
+  background: var(--bg);
+}
+
+.card details summary {
+  cursor: pointer;
+  font-weight: 700;
+  min-height: 28px;
+}
+
+.card details[open] summary {
+  margin-bottom: .6rem;
+  color: var(--teal);
+}
+
+.card details li {
+  margin-bottom: .4rem;
+}
+
+.card li .row {
+  margin: .5rem 0;
+}
+
+@media(max-width:600px) {
+  .card .row > button,
+  .card .row > a.btn {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+
+  #share-location {
+    width: 100%;
+  }
+
+  .card details {
+    padding: .7rem;
+  }
+}
+
+@media print {
+  .card details {
+    break-inside: avoid;
+  }
+
+  .card details:not([open]) > *:not(summary) {
+    display: block !important;
+  }
+}
+
+/* MediBridge Part 11 - Voice Healthcare Assistant */
+
+.voice-intro {
+  border-left: 4px solid var(--teal);
+}
+
+.voice-toolbar {
+  margin-bottom: 1rem;
+}
+
+.voice-toolbar label {
+  margin: 0;
+}
+
+.voice-toolbar select {
+  width: auto;
+  min-width: 130px;
+}
+
+.voice-messages {
+  height: 360px;
+  overflow-y: auto;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--bg);
+  margin: 1rem 0;
+}
+
+.voice-message {
+  max-width: 85%;
+  width: fit-content;
+  padding: .8rem 1rem;
+  margin-bottom: .8rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+  overflow-wrap: anywhere;
+}
+
+.voice-message p {
+  margin: .35rem 0 0;
+  white-space: pre-wrap;
+}
+
+.voice-message.user {
+  margin-left: auto;
+  background: var(--teal);
+  color: var(--teal-ink);
+  border-color: var(--teal);
+}
+
+.voice-message.assistant {
+  margin-right: auto;
+}
+
+.voice-actions {
+  margin-top: .8rem;
+}
+
+.voice-actions button {
+  flex: 0 1 auto;
+}
+
+#voice-start {
+  border-color: var(--teal);
+  font-weight: 700;
+}
+
+#voice-start:disabled,
+#voice-stop:disabled {
+  opacity: .5;
+}
+
+#voice-status {
+  margin-top: 1rem;
+  padding: .6rem;
+  border-radius: 8px;
+  background: var(--bg);
+}
+
+@media(max-width:600px) {
+  .voice-toolbar {
+    align-items: stretch;
+  }
+
+  .voice-toolbar label {
+    flex: 1 1 100%;
+  }
+
+  .voice-toolbar select,
+  .voice-toolbar button {
+    width: 100%;
+  }
+
+  .voice-messages {
+    height: 320px;
+  }
+
+  .voice-message {
+    max-width: 95%;
+  }
+
+  .voice-actions button {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}

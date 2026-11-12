@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediBridge - AI Health Assistant</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .chat-layout {
+            display: grid;
+            grid-template-columns: 260px minmax(0, 1fr);
+            gap: 18px;
+            max-width: 1150px;
+            margin: 24px auto;
+        }
+
+        .chat-sidebar, .chat-panel {
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: var(--bg);
+            padding: 16px;
+            min-width: 0;
+        }
+
+        .chat-sidebar button, .chat-panel button {
+            cursor: pointer;
+        }
+
+        .conversation-list {
+            display: grid;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .conversation-item {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 11px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: transparent;
+            color: inherit;
+            overflow-wrap: anywhere;
+        }
+
+        .conversation-item.active {
+            border-color: var(--teal);
+        }
+
+        .chat-messages {
+            height: 430px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 12px 2px;
+        }
+
+        .chat-bubble {
+            max-width: 85%;
+            padding: 12px 14px;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            line-height: 1.55;
+        }
+
+        .chat-bubble.user {
+            align-self: flex-end;
+            background: var(--teal);
+            color: white;
+        }
+
+        .chat-bubble.assistant {
+            align-self: flex-start;
+        }
+
+        .chat-compose {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .chat-compose textarea {
+            flex: 1;
+            min-height: 58px;
+            resize: vertical;
+        }
+
+        .chat-disclaimer {
+            font-size: 12px;
+            margin-top: 12px;
+        }
+
+        @media (max-width: 700px) {
+            .chat-layout {
+                grid-template-columns: 1fr;
+                margin: 12px auto;
+            }
+
+            .chat-sidebar {
+                order: 2;
+            }
+
+            .chat-messages {
+                height: 55vh;
+            }
+
+            .chat-bubble {
+                max-width: 94%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main id="main" class="container">
+        <h1>AI Health Assistant</h1>
+        <p class="muted">
+            Ask general health questions and understand health information
+            in your preferred language.
+        </p>
+
+        <div class="chat-layout">
+            <aside class="chat-sidebar">
+                <button id="new-chat" class="primary" type="button">
+                    + New conversation
+                </button>
+
+                <h3>Previous conversations</h3>
+                <div id="conversation-list" class="conversation-list">
+                    <p class="muted">Loading conversations...</p>
+                </div>
+            </aside>
+
+            <section class="chat-panel">
+                <div>
+                    <h2 id="chat-title">New conversation</h2>
+                    <p class="muted">
+                        MediBridge AI Health Assistant
+                    </p>
+                </div>
+
+                <div
+                    id="chat-messages"
+                    class="chat-messages"
+                    aria-live="polite"
+                    aria-label="Chat messages"
+                >
+                    <p class="muted">
+                        Start a conversation by typing your question below.
+                    </p>
+                </div>
+
+                <form id="chat-form">
+                    <div class="chat-compose">
+                        <textarea
+                            id="chat-input"
+                            maxlength="3000"
+                            rows="2"
+                            placeholder="Type your health question..."
+                            required
+                        ></textarea>
+
+                        <button id="send-chat" class="primary" type="submit">
+                            Send
+                        </button>
+                    </div>
+                </form>
+
+                <p class="chat-disclaimer notice">
+                    MediBridge AI provides general health information only.
+                    It does not diagnose conditions or replace a qualified
+                    doctor. For a genuine emergency in India, call 112.
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+    <script src="chatbot.js"></script>
+</body>
+</html>

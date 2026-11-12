@@ -135,3 +135,215 @@ class HospitalCoordination(Base):
     updated_at = Column(DateTime(timezone=True), default=now, onupdate=now)
     emergency = relationship("Emergency", back_populates="hospital")
     facility = relationship("Facility")
+# =====================================================
+# PHASE 2 - MEDICAL REPORT ANALYZER
+# =====================================================
+
+class MedicalReport(Base):
+
+    __tablename__ = "medical_reports"
+
+    id = Column(
+        Integer,
+        primary_key=True,
+        index=True
+    )
+
+    user_id = Column(
+        Integer,
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True
+    )
+
+    original_filename = Column(
+        String(255),
+        nullable=False
+    )
+
+    content_type = Column(
+        String(80),
+        nullable=False
+    )
+
+    file_size = Column(
+        Integer,
+        nullable=False
+    )
+
+    encrypted_file = Column(
+        Text,
+        nullable=False
+    )
+
+    encrypted_extracted_text = Column(
+        Text,
+        nullable=False
+    )
+
+    encrypted_analysis = Column(
+        Text,
+        nullable=False
+    )
+
+    created_at = Column(
+        DateTime(timezone=True),
+        default=now,
+        nullable=False
+    )
+
+    # =====================================================
+# PHASE 3 - AI SYMPTOM CHECKER
+# =====================================================
+
+class SymptomAssessment(Base):
+    __tablename__ = "symptom_assessments"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    user_id = Column(
+        Integer,
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True
+    )
+
+    encrypted_input = Column(Text, nullable=False)
+    encrypted_result = Column(Text, nullable=False)
+
+    urgency = Column(String(20), nullable=False, index=True)
+
+    created_at = Column(
+        DateTime(timezone=True),
+        default=now,
+        nullable=False
+    )
+
+
+# =====================================================
+# PHASE 4 - AI HEALTH CHATBOT
+# =====================================================
+
+class ChatConversation(Base):
+    __tablename__ = "chat_conversations"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    user_id = Column(
+        Integer,
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True
+    )
+
+    title = Column(String(160), default="New conversation", nullable=False)
+
+    language = Column(String(30), default="English", nullable=False)
+
+    created_at = Column(DateTime(timezone=True), default=now, nullable=False)
+    updated_at = Column(DateTime(timezone=True), default=now, onupdate=now, nullable=False)
+
+
+class ChatMessage(Base):
+    __tablename__ = "chat_messages"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    conversation_id = Column(
+        Integer,
+        ForeignKey("chat_conversations.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True
+    )
+
+    role = Column(String(20), nullable=False)  # user / assistant
+
+    encrypted_content = Column(Text, nullable=False)
+
+    created_at = Column(DateTime(timezone=True), default=now, nullable=False)
+
+class WoundAssessment(Base):
+    __tablename__ = "wound_assessments"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(
+        Integer,
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+
+    original_filename = Column(String(255), nullable=False)
+    content_type = Column(String(50), nullable=False)
+
+    # Encrypted image bytes (stored as base64 text).
+    encrypted_image = Column(Text, nullable=False)
+
+    # Encrypted AI observation text.
+    encrypted_result = Column(Text, nullable=False)
+
+    created_at = Column(
+        DateTime(timezone=True),
+        default=now,
+        nullable=False,
+    )
+
+class FamilyProfile(Base):
+    __tablename__ = "family_profiles"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    owner_user_id = Column(
+        Integer,
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True
+    )
+
+    # Sensitive profile fields are encrypted before database storage.
+    encrypted_full_name = Column(Text, nullable=False)
+    encrypted_relationship = Column(Text, nullable=False)
+    encrypted_date_of_birth = Column(Text, nullable=True)
+    encrypted_blood_group = Column(Text, nullable=True)
+    encrypted_allergies = Column(Text, nullable=True)
+    encrypted_emergency_notes = Column(Text, nullable=True)
+
+    created_at = Column(DateTime(timezone=True), default=now, nullable=False)
+    updated_at = Column(
+        DateTime(timezone=True),
+        default=now,
+        onupdate=now,
+        nullable=False
+    )
+
+
+class FamilyProfileShare(Base):
+    __tablename__ = "family_profile_shares"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    profile_id = Column(
+        Integer,
+        ForeignKey("family_profiles.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True
+    )
+
+    owner_user_id = Column(
+        Integer,
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True
+    )
+
+    invited_user_id = Column(
+        Integer,
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True
+    )
+
+    status = Column(String(20), default="pending", nullable=False, index=True)
+
+    created_at = Column(DateTime(timezone=True), default=now, nullable=False)
+    responded_at = Column(DateTime(timezone=True), nullable=True)

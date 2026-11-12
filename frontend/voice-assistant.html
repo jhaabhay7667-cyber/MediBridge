@@ -1,0 +1,106 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Voice AI Assistant – MediBridge</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="main">
+    <h1>Voice AI Healthcare Assistant</h1>
+
+    <section class="card voice-intro">
+      <h2>Talk to MediBridge</h2>
+      <p>Ask general health questions using your voice or by typing.</p>
+      <p class="notice">
+        MediBridge provides general health information, not medical diagnosis.
+        For a genuine emergency in India, call 112 immediately.
+      </p>
+    </section>
+
+    <section class="card">
+      <div class="row voice-toolbar">
+        <label for="voice-language">Language</label>
+        <select id="voice-language">
+          <option value="en">English</option>
+          <option value="hi">हिन्दी</option>
+          <option value="bn">বাংলা</option>
+        </select>
+
+        <button type="button" id="new-voice-chat">New conversation</button>
+      </div>
+
+      <div class="row voice-toolbar">
+        <label for="voice-list">Previous conversations</label>
+        <select id="voice-list">
+          <option value="">Select a conversation</option>
+        </select>
+      </div>
+
+      <h2 id="voice-chat-title">New conversation</h2>
+
+      <div id="voice-messages" class="voice-messages" aria-live="polite">
+        <p class="muted">Start by asking a health question.</p>
+      </div>
+
+      <form id="voice-chat-form">
+        <label for="voice-chat-input">Your question</label>
+        <textarea
+          id="voice-chat-input"
+          rows="3"
+          maxlength="3000"
+          placeholder="Type your health question here..."
+        ></textarea>
+
+        <div class="row voice-actions">
+          <button type="submit" class="primary" id="voice-send">
+            Send message
+          </button>
+
+          <button type="button" id="voice-start">
+            🎙 Start speaking
+          </button>
+
+          <button type="button" id="voice-stop" disabled>
+            Stop microphone
+          </button>
+        </div>
+      </form>
+
+      <div class="row voice-actions">
+        <button type="button" id="voice-read">
+          🔊 Read last answer
+        </button>
+
+        <button type="button" id="voice-mute">
+          Mute voice
+        </button>
+
+        <button type="button" id="voice-clear">
+          Stop audio
+        </button>
+      </div>
+
+      <p id="voice-status" class="muted" role="status">
+        Voice assistant is ready.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Important health safety information</h2>
+      <ul>
+        <li>AI responses are informational and may contain errors.</li>
+        <li>Do not use AI responses as a replacement for a doctor.</li>
+        <li>Never delay emergency care to continue chatting.</li>
+        <li>For a genuine emergency in India, call 112.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+  <script src="voice-assistant.js"></script>
+</body>
+</html>
