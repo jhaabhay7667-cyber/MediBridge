@@ -1,1 +1,1 @@
-   window.MB_CONFIG = { API_BASE: "https://medibridge-qedv.onrender.com" };
+   window.MB_CONFIG = { API_BASE: "https://medibridge-1-4ind.onrender.com" };
